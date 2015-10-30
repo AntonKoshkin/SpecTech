@@ -1,0 +1,22 @@
+{
+  "name": "builder",
+  "description": "my builder",
+  "main": "index.js",
+  "authors": [
+    "scink"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/AntonKoshkin/builder",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "*",
+    "jquery": "2.*"
+  }
+}
