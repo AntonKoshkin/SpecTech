@@ -1,0 +1,35 @@
+.specials {
+	padding: 45px 0 30px;
+	background: #4b5770 url(../img/bg__catalog--specials.jpg);
+	.bgi-prop();
+	&__title {
+		margin-bottom: 14px;
+		font-size: 26px;
+		color: #fff;
+	}
+}
+
+.cat-item {
+	&--sale {
+		&:before {
+			.pseudo();
+			width: 130px;
+			height: 34px;
+			background: #d12222;
+			right: -32px;
+			top: 5px;
+			transform: rotate(45deg);
+		}
+		&:after {
+			display: inline-block;
+			position: absolute;
+			content: 'sale';
+			color: #fff;
+			font-weight: bold;
+			font-size: 18px;
+			transform: rotate(45deg);
+			top: 16px;
+			right: 10px;
+		}
+	}
+}
