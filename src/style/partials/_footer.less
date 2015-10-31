@@ -1,0 +1,79 @@
+.footer {
+	background: @dark-blue;
+	padding: 14.5px 0;
+	&__logo {
+		display: inline-block;
+		padding: 7.5px -0px;
+		position: relative;
+		padding-left: 62px;
+		font-size: 24px;
+		color: @yellow;
+		&--fat {
+			font-weight: bold;
+		}
+		&:before {
+			display: inline-block;
+			content: '';
+			.icon__logo--white();
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+		.index-body & {
+			pointer-events: none;
+		}
+	}
+}
+
+.foot-menu {
+	float: right;
+	li {
+		display: inline-block;
+	}
+	&__item {
+		display: inline-block;
+		font-size: 16px;
+		padding: 13px 17px;
+		box-sizing: border-box;
+		color: #fff;
+		&:hover {
+			padding: 11px 15px;
+			border: 2px solid rgba(255, 255, 255, .3);
+		}
+		&:active {
+			padding: 11px 15px;
+			border: 2px solid rgba(255, 255, 255, .6);
+		}
+		&--callback {
+			color: @yellow;
+			margin-left: 8px;
+			padding: 13px 26px;
+			&:hover {
+				border: none;
+				padding: 13px 26px;
+			}
+			&:active {
+				border: none;
+				padding: 13px 26px;
+			}
+		}
+		.index-body li:nth-child(1) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.catalog-body li:nth-child(2) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.portfolio-body li:nth-child(3) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.contacts-body li:nth-child(4) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+	}
+}

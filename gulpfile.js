@@ -10,10 +10,13 @@ var gulp = require('gulp'),
 	cssmin = require('gulp-minify-css'),
 	imagemin = require('gulp-imagemin'),
 	pngquant = require('imagemin-pngquant'),
-	rimraf = require('rimraf'),
-	browserSync = require("browser-sync"),
-	svgSprite = require("gulp-svg-sprite"),
+	// rimraf = require('rimraf'),
+	clean = require('gulp-clean'),
+	browserSync = require('browser-sync'),
+	svgSprite = require('gulp-svg-sprite'),
 	reload = browserSync.reload,
+	plumber = require('gulp-plumber'),
+	// coffee = require('gulp-coffee'),
 
 	path = {
 		build: { //Тут мы укажем куда складывать готовые после сборки файлы
@@ -28,7 +31,7 @@ var gulp = require('gulp'),
 			html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
 			js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
 			style: 'src/style/style.less',
-			img: 'src/img/**/*.*, !src/img/**/*.svg', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+			img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
 			sSvg: 'src/img/sprite-svg/*.svg',
 			fonts: 'src/fonts/**/*.*'
 		},
@@ -36,25 +39,21 @@ var gulp = require('gulp'),
 			html: 'src/**/*.html',
 			js: 'src/js/**/*.js',
 			style: 'src/style/**/*.less',
-			img: 'src/img/**/*.*, !src/img/sprite-svg/',
+			img: 'src/img/**/*.*',
 			svg: 'src/img/sprite-svg/*.svg',
 			fonts: 'src/fonts/**/*.*'
 		},
 		clean: './build/*'
-	},
-
-	config = {
-		server: {
-			baseDir: "./build"
-		},
-		tunnel: true,
-		host: 'localhost',
-		port: 9000,
-		logPrefix: "Frontend_Devil"
 	};
+
+// gulp.src('./src/*.ext')
+//     .pipe(plumber())
+//     .pipe(coffee())
+//     .pipe(gulp.dest('./build'));
 
 gulp.task('html:build', function () {
 	gulp.src(path.src.html) //Выберем файлы по нужному пути
+		.pipe(plumber())
 		.pipe(rigger()) //Прогоним через rigger
 		.pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
 		.pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
@@ -62,6 +61,7 @@ gulp.task('html:build', function () {
 
 gulp.task('js:build', function () {
 	gulp.src(path.src.js) //Найдем наш main файл
+		.pipe(plumber())
 		.pipe(rigger()) //Прогоним через rigger
 		.pipe(sourcemaps.init()) //Инициализируем sourcemap
 		.pipe(uglify()) //Сожмем наш js
@@ -71,18 +71,20 @@ gulp.task('js:build', function () {
 });
 
 gulp.task('style:build', function () {
-	gulp.src(path.src.style) //Выберем наш main.scss
+	gulp.src(path.src.style) //Выберем наш style.less
+		.pipe(plumber())
 		.pipe(sourcemaps.init()) //То же самое что и с js
 		.pipe(less()) //Скомпилируем
 		.pipe(prefixer({browsers: ['> 2%', 'ie >= 9', 'last 2 versions']})) //Добавим вендорные префиксы
-		.pipe(cssmin()) //Сожмем
+		// .pipe(cssmin()) //Сожмем
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(path.build.css)) //И в build
 		.pipe(reload({stream: true}));
 });
 
-gulp.task('image:build', function () {
+gulp.task('img:build', function () {
 	gulp.src(path.src.img) //Выберем наши картинки
+		.pipe(plumber())
 		.pipe(imagemin({ //Сожмем их
 			progressive: true,
 			svgoPlugins: [{removeViewBox: false}],
@@ -93,47 +95,94 @@ gulp.task('image:build', function () {
 		.pipe(reload({stream: true}));
 });
 
+// gulp.task('svg:build', function () {
+// 	gulp.src(path.src.sSvg)
+// 		.pipe(svgSprite({
+// 			mode : {
+// 				css : {
+// 					render : {
+// 						less: {
+// 							dest : '_sprite.less'
+// 						}
+// 					},
+// 					sprite : '../img/svg-sprite.svg'
+// 				}
+// 			}
+// 		}))
+// 		.pipe(gulp.dest(path.build.sSvg)
+// 	);
+// 	gulp.src('build/css/*.less')
+// 		.pipe(gulp.dest('src/style/partials/'));
+// });
+
 gulp.task('svg:build', function () {
 	gulp.src(path.src.sSvg)
+		.pipe(plumber())
 		.pipe(svgSprite({
+			log : 'info',
 			mode : {
 				css : {
 					render : {
 						less: {
-							dest : '_sprite.less'
+							dest : '../style/_sprite.less'
 						}
 					},
-					sprite : '../img/svg-sprite.svg'
+					sprite : '../img/svg-sprite.svg',
+					prefix : '.%s()',
+					dimensions : '%s',
+					layout : 'vertical'
 				}
 			}
 		}))
-		.pipe(gulp.dest(path.build.sSvg)
-	);
-	gulp.src('build/css/*.less')
-		.pipe(gulp.dest('src/style/partials/'));
+		.pipe(gulp.dest('src/'))
+		.pipe(reload({stream: true}))
 });
 
 gulp.task('fonts:build', function() {
 	gulp.src(path.src.fonts)
+		.pipe(plumber())
 		.pipe(gulp.dest(path.build.fonts))
 });
 
 gulp.task('build', [
+	'clean',
+	'svg:build',
 	'html:build',
 	'js:build',
 	'style:build',
 	'fonts:build',
-	'image:build',
-	'svg:build'
+	'img:build'
 ]);
 
 gulp.task('webserver', function () {
-	browserSync(config);
+	browserSync({
+		server: {
+			baseDir: './build'
+		},
+		// tunnel: true,
+		host: 'localhost',
+		port: 9000,
+		logPrefix: 'Frontend_Devil'
+	});
+});
+
+gulp.task('clean', function () {
+	return gulp.src(path.clean, {read: false})
+		.pipe(clean());
+});
+
+gulp.task('svg:clean', function () {
+	return gulp.src('src/img/*.svg', {read: false})
+		.pipe(clean());
 });
 
 gulp.task('watch', function(){
 	watch([path.watch.html], function(event, cb) {
 		gulp.start('html:build');
+	});
+	watch([path.watch.svg], function(event, cb) {
+		gulp.start('svg:clean');
+		gulp.start('svg:build');
 	});
 	watch([path.watch.style], function(event, cb) {
 		gulp.start('style:build');
@@ -142,18 +191,15 @@ gulp.task('watch', function(){
 		gulp.start('js:build');
 	});
 	watch([path.watch.img], function(event, cb) {
-		gulp.start('image:build');
+		gulp.start('img:build');
 	});
 	watch([path.watch.fonts], function(event, cb) {
 		gulp.start('fonts:build');
 	});
-	watch([path.watch.svg], function(event, cb) {
-		gulp.start('svg:build');
-	});
 });
 
-gulp.task('clean', function (cb) {
-	rimraf(path.clean, cb);
-});
+// gulp.task('clean', function (cb) {
+// 	rimraf(path.clean, cb);
+// });
 
-gulp.task('default', ['clean', 'build', 'webserver', 'watch']);
+gulp.task('default', ['build', 'webserver', 'watch']);

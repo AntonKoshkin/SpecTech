@@ -1,0 +1,87 @@
+.header {
+	position: relative;
+	overflow: hidden;
+	background-color: @yellow;
+	padding: 15px 0 28px;
+	&__logo {
+		display: inline-block;
+		padding: 7.5px 0 7.5px 63px;
+		font-size: 24px;
+		&--fat {
+			font-weight: bold;
+		}
+		position: relative;
+		&:before {
+			display: inline-block;
+			content: '';
+			.icon__logo--black();
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+		.index-body & {
+			pointer-events: none;
+		}
+	}
+	&:after {
+		bottom: 0;
+		.yellow-black-strip();
+	}
+}
+.main-menu {
+	float: right;
+	li {
+		display: inline-block;
+	}
+	&__item {
+		display: inline-block;
+		font-size: 16px;
+		padding: 13px 17px;
+		box-sizing: border-box;
+		opacity: .55;
+		&:hover {
+			opacity: 1;
+			padding: 11px 15px;
+			border: 2px solid rgba(32, 46, 59, .3);
+		}
+		&:active {
+			opacity: 1;
+			padding: 11px 15px;
+			border: 2px solid rgba(32, 46, 59, .6);
+		}
+		&--callback {
+			opacity: 1;
+			margin-left: 8px;
+			padding: 13px 26px;
+			background: #ffe184;
+			&:hover {
+				padding: 13px 26px;
+				border: none;
+				background: #ffecb2;
+			}
+			&:active {
+				padding: 13px 26px;
+				border: none;
+				background: #f6bf16;
+			}
+		}
+		.index-body li:nth-child(1) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.catalog-body li:nth-child(2) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.portfolio-body li:nth-child(3) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.contacts-body li:nth-child(4) & {
+			opacity: 1;
+			pointer-events: none;
+		}
+	}
+}

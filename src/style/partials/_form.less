@@ -1,0 +1,67 @@
+.backcall {
+	position: relative;
+	padding: 40px 0 40px;
+	background: @dark-blue;
+	&__title {
+		color: @yellow;
+		font-size: 24px;
+		font-weight: normal;
+		margin-bottom: 35px;
+	}
+	&__input {
+		position: relative;
+		padding: 0 20px;
+		width: 100%;
+		height: 45px;
+		box-sizing: border-box;
+		background-color: transparent;
+		border: 1px solid @yellow;
+		font-size: 16px;
+		color: #fff;
+		outline: none;
+		&--submit {
+			border: none;
+			background: @yellow;
+			color: @dark-blue;
+			font-size: 18px;
+			font-weight: bold;
+			&:hover {
+				background: #ffd966;
+			}
+			&:active {
+				background: #f6bf16;
+		}
+		}
+		&:focus {
+			border-color: #887e4f;
+		}
+	}
+	&:before {
+		.yellow-black-strip();
+		top: 0;
+	}
+}
+
+.date-arrow {
+	position: relative;
+	display: inline-block;
+	z-index: 0;
+	&:after {
+		width: 0;
+		height: 0;
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-top: 10px solid @yellow;
+		display: inline-block;
+		content: '';
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		right: 24px;
+		position: absolute;
+		z-index: -1;
+	}
+	.backcall__input {
+		cursor: pointer;
+	}
+}

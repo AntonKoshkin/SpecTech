@@ -1,0 +1,42 @@
+.perks {
+	padding: 43.5px 0;
+	&__text {
+		font-size: 13px;
+		line-height: 16px;
+		position: relative;
+		&:before {
+			position: absolute;
+			display: inline-block;
+			content: '';
+			left: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+		&--keys {
+			padding-left: 50px;
+			&:before {
+				.icon__advantages--keys();
+			}
+		}
+		&--digger {
+			padding-left: 65px;
+			&:before {
+				.icon__advantages--digger();
+			}
+		}
+		&--fencing {
+			padding-left: 60px;
+			&:before {
+				.icon__advantages--fencing();
+			}
+		}
+		&--worker {
+			padding-left: 80px;
+			&:before {
+				left: 15px;
+				.icon__advantages--worker();
+			}
+		}
+	}
+}
