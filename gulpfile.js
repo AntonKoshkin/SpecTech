@@ -16,7 +16,6 @@ var gulp = require('gulp'),
 	svgSprite = require('gulp-svg-sprite'),
 	reload = browserSync.reload,
 	plumber = require('gulp-plumber'),
-	// coffee = require('gulp-coffee'),
 
 	path = {
 		build: { //Тут мы укажем куда складывать готовые после сборки файлы
@@ -46,11 +45,6 @@ var gulp = require('gulp'),
 		clean: './build/*'
 	};
 
-// gulp.src('./src/*.ext')
-//     .pipe(plumber())
-//     .pipe(coffee())
-//     .pipe(gulp.dest('./build'));
-
 gulp.task('html:build', function () {
 	gulp.src(path.src.html) //Выберем файлы по нужному пути
 		.pipe(plumber())
@@ -76,7 +70,7 @@ gulp.task('style:build', function () {
 		.pipe(sourcemaps.init()) //То же самое что и с js
 		.pipe(less()) //Скомпилируем
 		.pipe(prefixer({browsers: ['> 2%', 'ie >= 9', 'last 2 versions']})) //Добавим вендорные префиксы
-		// .pipe(cssmin()) //Сожмем
+		.pipe(cssmin()) //Сожмем
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(path.build.css)) //И в build
 		.pipe(reload({stream: true}));
@@ -94,26 +88,6 @@ gulp.task('img:build', function () {
 		.pipe(gulp.dest(path.build.img)) //И бросим в build
 		.pipe(reload({stream: true}));
 });
-
-// gulp.task('svg:build', function () {
-// 	gulp.src(path.src.sSvg)
-// 		.pipe(svgSprite({
-// 			mode : {
-// 				css : {
-// 					render : {
-// 						less: {
-// 							dest : '_sprite.less'
-// 						}
-// 					},
-// 					sprite : '../img/svg-sprite.svg'
-// 				}
-// 			}
-// 		}))
-// 		.pipe(gulp.dest(path.build.sSvg)
-// 	);
-// 	gulp.src('build/css/*.less')
-// 		.pipe(gulp.dest('src/style/partials/'));
-// });
 
 gulp.task('svg:build', function () {
 	gulp.src(path.src.sSvg)
@@ -197,9 +171,5 @@ gulp.task('watch', function(){
 		gulp.start('fonts:build');
 	});
 });
-
-// gulp.task('clean', function (cb) {
-// 	rimraf(path.clean, cb);
-// });
 
 gulp.task('default', ['build', 'webserver', 'watch']);

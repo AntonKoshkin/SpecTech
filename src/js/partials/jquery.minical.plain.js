@@ -29,7 +29,7 @@
   date_tools = {
     getMonthName: function(date) {
       var months;
-      months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
       return months[date.getMonth()];
     },
     getDayClass: function(date) {
@@ -54,7 +54,7 @@
     },
     dayHeader: function() {
       var $tr, day, days, _i, _len;
-      days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
       $tr = $("<tr />");
       for (_i = 0, _len = days.length; _i < _len; _i++) {
         day = days[_i];

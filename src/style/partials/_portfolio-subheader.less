@@ -1,0 +1,49 @@
+.port-sub {
+	padding: 37px 0;
+	background: #39566a url(../img/bg__portfolio--subheader.jpg);
+	.bgi-prop();
+	&__title {
+		font-size: 24px;
+		color: @yellow;
+		font-weight: normal;
+	}
+	&__menu {
+		display: table;
+		float: right;
+		li {
+			display: table-cell;
+			text-align: center;
+		}
+	}
+	&__item {
+		font-size: 16px;
+		line-height: 31px;
+		color: #fff;
+		text-decoration: underline;
+		&:hover {
+			font-weight: bold;
+		}
+		&:active {
+			font-weight: bold;
+			text-decoration: none;
+		}
+	}
+	li:nth-child(1) {
+		min-width: 115px;
+	}
+	li:nth-child(2) {
+		min-width: 135px;
+	}
+	li:nth-child(3) {
+		min-width: 110px;
+	}
+	li:nth-child(4) {
+		min-width: 160px;
+	}
+	li:nth-child(5) {
+		min-width: 95px;
+	}
+	li:last-child & {
+		text-align: right;
+	}
+}

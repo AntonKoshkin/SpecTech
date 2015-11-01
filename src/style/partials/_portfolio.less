@@ -1,0 +1,60 @@
+.portfolio {
+	&__item {
+		&:nth-child(1) {
+			background: #c07a37 url(../img/bg__portfolio--item1.jpg);
+			.bgi-prop();
+		}
+		&:nth-child(2) {
+			background: #c6ac9a url(../img/bg__portfolio--item2.jpg);
+			.bgi-prop();
+		}
+		&:nth-child(3) {
+			background: #a9b6bb url(../img/bg__portfolio--item3.jpg);
+			.bgi-prop();
+		}
+		padding: 102px 0 152px;
+		border-top: 10px solid #000;
+	}
+	&__content {
+		display: inline-block;
+		max-width: 322px;
+		box-sizing: border-box;
+		padding: 23px 22px 30px 30px;
+		background: #fff;
+	}
+	&__title {
+		margin-bottom: 7px;
+		font-size: 20px;
+		color: @dark-blue;
+	}
+	&__text {
+		margin-bottom: 14px;
+		font-size: 14px;
+		line-height: 20px;
+		color: @dark-blue;
+	}
+	&__button {
+		display: inline-block;
+		background: @yellow;
+		color: @dark-blue;
+		font-size: 15px;
+		font-weight: bold;
+		position: relative;
+		padding: 10.5px 36px 10.5px 16px;
+		cursor: pointer;
+		&:after {
+			.pseudo();
+			.icon__arrow--right-black();
+			right: 14px;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+		&:hover {
+			background: #ffd966;
+		}
+		&:active {
+			background: #f6bf16;
+		}
+	}
+}
