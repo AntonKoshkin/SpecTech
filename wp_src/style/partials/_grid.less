@@ -1,0 +1,141 @@
+// количество колонок в сетке
+@colNumber-lg: 12;
+// @colNumber-md: 8;
+// @colNumber-sm: 6;
+
+// ширина контейнера
+@containerWidth-lg: 940px;
+// @containerWidth-md: 718px;
+// @containerWidth-sm: 312px;
+
+// минимальная ширина
+@minWidth-lg: (@containerWidth-lg + @containerPadding-lg*2);
+
+// паддинг контейнера
+@containerPadding-lg: 10px;
+// @containerPadding-md: 25px;
+// @containerPadding-sm: 24px;
+
+// паддинг колонки
+@columnPadding-lg: 0 10px;
+// @columnPadding-md: 0 13px;
+// @columnPadding-sm: 0 12px;
+
+// маргин строки
+@rowMargin-lg: 0 -10px;
+// @rowMargin-md: 0 -13px;
+// @rowMargin-sm: 0 -12px;
+
+
+body {
+	min-width: @minWidth-lg;
+}
+
+.container {
+	position: relative;
+	margin: 0 auto;
+}
+.row {
+	font-size: 0;
+	> div {
+		display: inline-block;
+		box-sizing: border-box;
+		vertical-align: top;
+	}
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}
+.clearfix() {
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}
+
+// создаватель колонок
+.make-grid(@pref, @n, @i: 1) when (@i =< @n) {
+  .col-@{pref}-@{i} {
+    width: (@i * 100% / @n);
+  }
+  .make-grid(@pref, @n, (@i + 1));
+}
+
+// создаватель отступов
+.make-offset(@pref, @n, @i: 1) when (@i =< @n) {
+  .col-off-@{pref}-@{i} {
+    margin-left: (@i * 100% / @n);
+  }
+  .make-offset(@pref, @n, (@i + 1));
+}
+
+.container {
+	width: @containerWidth-lg;
+	padding-left: @containerPadding-lg;
+	padding-right: @containerPadding-lg;
+}
+.row {
+	margin: @rowMargin-lg;
+}
+*[class*="col-lg"] {
+	padding: @columnPadding-lg;
+}
+
+.make-grid(lg, @colNumber-lg);
+.make-offset(lg, @colNumber-lg);
+
+// @media (min-width: 768px) and (max-width: 1199px) {
+// 	.container {
+// 		width: @containerWidth-md;
+// 		padding-left: @containerPadding-md;
+// 		padding-right: @containerPadding-md;
+// 	}
+// 	.row {
+// 		margin: @rowMargin-md;
+// 	}
+// 	*[class*="col-md"] {
+// 		padding: @columnPadding-md;
+// 	}
+
+// 	.make-offset(md, @colNumber-md);
+// 	.make-grid(md, @colNumber-md);
+// }
+// @media (max-width: 767px) {
+// 	.container {
+// 		width: @containerWidth-sm;
+// 		padding-left: @containerPadding-sm;
+// 		padding-right: @containerPadding-sm;
+// 	}
+// 	.row {
+// 		margin: @rowMargin-sm;
+// 	}
+// 	*[class*="col-sm"] {
+// 		padding: @columnPadding-sm;
+// 	}
+
+// 	.make-grid(sm, @colNumber-sm);
+// 	.make-offset(sm, @colNumber-sm);
+// }
+
+// равнение
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+.text-left {
+	text-align: left;
+}
+.text-center {
+	text-align: center;
+}
+.text-right {
+	text-align: right;
+}
+.d-ib>* {
+	display: inline-block;
+}

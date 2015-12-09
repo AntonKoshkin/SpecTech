@@ -1,0 +1,36 @@
+.port-sub {
+	padding: 37px 0;
+	background: #39566a url(../img/bg__portfolio--subheader.jpg);
+	.bgi-prop();
+	&__title {
+		font-size: 24px;
+		color: @yellow;
+		font-weight: normal;
+	}
+	&__menu {
+		display: table;
+		float: right;
+		li {
+			display: table-cell;
+			text-align: center;
+		}
+	}
+	&__item {
+		padding: 0 5px;
+		font-size: 16px;
+		line-height: 31px;
+		color: #fff;
+		text-decoration: underline;
+		&:hover {
+			font-weight: bold;
+		}
+		&:active {
+			font-weight: bold;
+			text-decoration: none;
+		}
+	}
+	li:last-child & {
+		text-align: right;
+		padding: 0 0 0 5px;
+	}
+}

@@ -17,34 +17,36 @@
 			.icon__tractor--left();
 		}
 	}
-	&__item {
-		display: inline-block;
-		font-size: 16px;
-		color: #353535;
-		text-decoration: underline;
-		margin-bottom: 17px;
-		&:hover {
-			font-weight: bold;
-		}
-		&:active {
-			font-weight: bold;
-			text-decoration: none;
-		}
-		&--active {
-			text-decoration: none;
-			font-weight: bold;
-			padding-left: 17px;
-			position: relative;
-			&:before {
-				.pseudo();
-				left: 0;
-				top: 0;
-				bottom: 0;
-				margin: auto;
-				.icon__arrow--right-catalog();
+	&__menu {
+		a {
+			display: inline-block;
+			font-size: 16px;
+			color: #353535;
+			text-decoration: underline;
+			margin-bottom: 17px;
+			&:hover {
+				font-weight: bold;
+			}
+			&:active {
+				font-weight: bold;
+				text-decoration: none;
+			}
+			&--active {
+				text-decoration: none;
+				font-weight: bold;
+				padding-left: 17px;
+				position: relative;
+				&:before {
+					.pseudo();
+					left: 0;
+					top: 0;
+					bottom: 0;
+					margin: auto;
+					.icon__arrow--right-catalog();
+				}
 			}
 		}
-		li:last-child & {
+		li:last-child a {
 			margin-bottom: 24px;
 		}
 	}
@@ -80,7 +82,9 @@
 	background: #fff;
 	&__title {
 		font-size: 20px;
-		margin-bottom: 30px;
+		&:last-of-type {
+			margin-bottom: 30px;
+		}
 	}
 	&__img {
 		margin: 0 auto 30px;
@@ -99,6 +103,11 @@
 		}
 		&--big {
 			font-size: 27px;
+		}
+		&--old {
+			font-size: 22px;
+			color: #d12222;
+			text-decoration: line-through;
 		}
 	}
 	&__button {
@@ -150,9 +159,10 @@
 		}
 	}
 }
-.cat-pagination {
+
+.nav-links {
 	text-align: center;
-	&__list {
+	ul {
 		li {
 			display: inline-block;
 			margin-right: 9px;
@@ -161,18 +171,14 @@
 			}
 		}
 	}
-	&__item {
+	a {
 		display: inline-block;
 		font-size: 16px;
 		line-height: 15px;
 		padding: 3px 6px;
 		border-radius: 2px;
 		color: #353535;
-		&--active {
-			background: #354b60;
-			color: #fff;
-			pointer-events: none;
-		}
+		
 		&:hover {
 			padding: 1px 4px;
 			border: 2px solid rgba(53, 75, 69, .5);
@@ -182,4 +188,15 @@
 			border: 2px solid rgba(53, 75, 69, 1);
 		}
 	}
+	span {
+		display: inline-block;
+		font-size: 16px;
+		line-height: 15px;
+		padding: 3px 6px;
+		background: #354b60;
+		color: #fff;
+		pointer-events: none;
+		border-radius: 2px;
+	}
+
 }

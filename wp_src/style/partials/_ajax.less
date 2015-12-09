@@ -1,0 +1,49 @@
+/*= Pagination loader */
+.qwerty {
+	position: relative;
+}
+#pagination-loader {
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	width: 40px;
+	height: 40px;
+	// margin: 1.5em auto;
+	background: #ccc;
+	border-radius: 50%;
+	-webkit-animation: pulse 1s infinite alternate;
+	animation: pulse 1s infinite alternate;
+	display: none;
+}
+
+@-webkit-keyframes pulse {
+	from {
+		opacity: 1;
+		width: 40px;
+		height: 40px;
+	}
+	
+	to {
+		opacity: 0.5;
+		width: 35px;
+		height: 35px;
+	}
+}
+
+@keyframes pulse {
+	from {
+		opacity: 1;
+		width: 40px;
+		height: 40px;
+	}
+	
+	to {
+		opacity: 0.5;
+		width: 35px;
+		height: 35px;
+	}
+}

@@ -1,0 +1,47 @@
+.banner {
+	background: #576c7f url(../img/bg__index--promo.jpg);
+	.bgi-prop();
+	padding: 125px 0 120px;
+	text-align: center;
+	&__title {
+		display: inline-block;
+		font-size: 44px;
+		font-weight: bold;
+		color: #fff;
+		text-transform: uppercase;
+		margin-bottom: 14px;
+	}
+	&__main-text {
+		font-size: 20px;
+		color: #e1e1e1;
+		width: 620px;
+		margin: auto;
+		font-weight: normal;
+		margin-bottom: 21px;
+	}
+	&__button {
+		display: inline-block;
+		font-size: 18px;
+		font-weight: bold;
+		color: #fff;
+		border: 2px solid @yellow;
+		padding: 9.5px 50px 9.5px 22px;
+		position: relative;
+		&:hover {
+			border-color: #ffd966;
+		}
+		&:active {
+			border-color: #ffe390;
+		}
+		&:after {
+			display: inline-block;
+			content: '';
+			.icon__arrow--right();
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			right: 24px;
+			position: absolute;
+		}
+	}
+}

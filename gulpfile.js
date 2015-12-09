@@ -70,7 +70,7 @@ gulp.task('style:build', function () {
 		.pipe(sourcemaps.init()) //То же самое что и с js
 		.pipe(less()) //Скомпилируем
 		.pipe(prefixer({browsers: ['> 2%', 'ie >= 9', 'last 2 versions']})) //Добавим вендорные префиксы
-		.pipe(cssmin()) //Сожмем
+		// .pipe(cssmin()) //Сожмем
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(path.build.css)) //И в build
 		.pipe(reload({stream: true}));
@@ -173,3 +173,58 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', ['build', 'webserver', 'watch']);
+
+gulp.task('wp_php', function() {
+	gulp.src('wp_src/html/**/*.php')
+		.pipe(plumber())
+		.pipe(gulp.dest('wordpress/'))
+});
+
+gulp.task('wp_css', function() {
+	gulp.src('wp_src/style/style.less')
+		.pipe(plumber())
+		.pipe(sourcemaps.init())
+		.pipe(less())
+		.pipe(prefixer({browsers: ['> 2%', 'ie >= 9', 'last 2 versions']}))
+		// .pipe(cssmin())
+		.pipe(sourcemaps.write('./'))
+		.pipe(gulp.dest('wordpress/css/'))
+		.pipe(reload({stream: true}));
+})
+
+gulp.task('wp_img', function() {
+	gulp.src('wp_src/img/**/*.*')
+		.pipe(gulp.dest('wordpress/img/'))
+});
+
+gulp.task('wp_js', function() {
+	gulp.src('wp_src/js/main.js')
+		.pipe(plumber())
+		.pipe(rigger())
+		.pipe(sourcemaps.init())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('wordpress/js/'))
+});
+
+gulp.task('wp:build', [
+	'wp_php',
+	'wp_css',
+	'wp_img',
+	'wp_js'
+]);
+
+gulp.task('wp:watch', function() {
+	gulp.task('wp:build');
+	watch('wp_src/html/**/*.*', function(event, cb) {
+		gulp.start('wp_php');
+	});
+	watch('wp_src/style/partials/*.*', function(event, cb) {
+		gulp.start('wp_css');
+	});
+	watch('wp_src/img/**/*.*', function(event, cb) {
+		gulp.start('wp_img');
+	});
+	watch('wp_src/js/**/*.*', function(event, cb) {
+		gulp.start('wp_js');
+	});
+});
